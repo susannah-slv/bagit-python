@@ -939,7 +939,7 @@ class Bag(object):
         if os.path.expandvars(path) != path:
             logging.debug("Path is different when applying expandvars.")
             logging.debug("After: " + os.path.expandvars(path))
-            return True
+            ## return True
         real_path = os.path.realpath(os.path.join(self.path, path))
         logging.debug(real_path)
         real_path = os.path.normpath(real_path)
