@@ -928,17 +928,28 @@ class Bag(object):
         outside the bagging directory structure, e.g. ~/.bashrc, ../../../secrets.json,
         \\\\?\\c:\\, D:\\sys32\\cmd.exe
         """
+        logging.debug("Testing path safety for path: " + path)
         if os.path.isabs(path):
+            logging.debug("Is absolute path.")
             return True
         if os.path.expanduser(path) != path:
+            logging.debug("Path is different when applying expanduser.")
+            logging.debug("After: " + os.path.expanduser(path))
             return True
         if os.path.expandvars(path) != path:
+            logging.debug("Path is different when applying expandvars.")
+            logging.debug("After: " + os.path.expandvars(path))
             return True
         real_path = os.path.realpath(os.path.join(self.path, path))
+        logging.debug(real_path)
         real_path = os.path.normpath(real_path)
+        logging.debug(real_path)
         bag_path = os.path.realpath(self.path)
+        logging.debug(bag_path)
         bag_path = os.path.normpath(bag_path)
+        logging.debug(bag_path)
         common = os.path.commonprefix((bag_path, real_path))
+        logging.debug(common)
         return not (common == bag_path)
 
 
